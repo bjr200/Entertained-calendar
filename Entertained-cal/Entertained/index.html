@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Entertained</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./assets/CSS/style.css">
+  </head>
+  <body>
+    <header>
+      <div class="nav-wrapper">
+        <nav class="blue-grey">
+          <ul id="nav-mobile" class="right">
+            <li><a href="https://github.com/acarter867/Entertained">Visit Github Repo</a></li>
+            <li class="modal-trigger" data-target="modal5"><a href="">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div id="modal5" class="modal about-modal">
+      <div class="modal-content">
+        <h2 id="about-header">About</h2>
+        <h3 id="Purpose"></h3>
+        <p id="purpose-description">The purpose of this application is for users to keep track of planned activities, 
+          along with searching for new ones.</p>
+        <h3 id="our-apis"></h3>
+        <ul>
+          <li>We utilize the <a href="https://www.boredapi.com/">Bored API</a>, which generates random activities for users, which 
+          may be added to the calendar at the users discretion.
+          </li>
+
+          <li>We also utilize the <a href="https://platform.seatgeek.com/">SeatGeek API</a> to generate a list of events by location,
+          calculated by longitude & latitude coordinates. 
+          </li>
+
+          <li>Finally, we utilize the <a href="https://openweathermap.org/api/geocoding-api">OpenWeatherMap Geocoding API</a> to retrieve the coordinates of 
+          a city by name. We pass these geographical coordinates into the SeatGeek API to retrieve a list of events in any particular city.
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn modal-close">Got It!</button>
+      </div>
+    </div>
+
+    <div class="container">
+    <div class="row">
+      <div class="calendar col l9">
+        <div class="month">
+            <h1 class="arrow" id="left-arrow">&lt</h1>
+            <h1 id="month">month</h1>
+            <h1 class="arrow" id="right-arrow">&gt</h1>
+        </div>
+        
+        <div class="days">
+            <table id="calendar-table" class="centered">
+              <thead>
+                <tr id="weekdays">
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th class="no-border">Sat</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <!--Event cards-->
+        <div class="modal" id="modal1">
+          <div class="green lighten-3" id="event-modal">
+            <div class="modal-header">
+            <p class="modal-title">Todays Events 
+              <div class="fixed-action-button">
+                <a class="btn-floating btn-small red">
+                  <i id="btn-create-new-event" data-target="modal2" class="modal-trigger btn-add-event medium material-icons">+</i>
+              </a>
+              <p>OR...
+                <br />
+                <button data-target="modal2" id="random-activity" class="btn modal-trigger">Random</button></p>
+              
+            </div></p>
+          </div>
+          </div>
+
+          <div class="modal-footer grey card-modal-footer">
+            <button class="btn modal-close waves-effect waves-green">Looks Good!</button>
+          </div>
+        </div>
+
+
+        <div class="new-event">
+                  <!--Create New Event modal-->
+          <div id="modal2" class="modal">
+            <div class="modal-content">
+              <h4>New Event!</h4>
+              <div class="event-info">
+                <div class="event-name-input">
+                  <p>Event Name:<input id="txt-event-name" type="text" placeholder="Enter Event Name!"></p>
+                </div>
+                <div class="event-description">
+                  <p>Description:<input id="txt-event-description" type="text" placeholder="Enter Event Description!"></p>                 
+                </div>
+                <div class="event-location">
+                  <p>Location:<input id="txt-event-location" type="text" placeholder="Enter Event location!"></p>                 
+                </div>
+                <div class="event-start-time">
+                  <p>Start Time:<input id="txt-start-time" type="text" placeholder="Enter Event Start Time!"></p>                  
+                </div>
+                <div class="event-end-time">
+                  <p>End Time:<input id="txt-end-time" type="text" placeholder="Enter Event End Time!"></p>                  
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="btn-new-event" class="btn modal-close waves-effect waves-green">Create Event!</button>
+              <button id="btn-confirm-edit" class="hidden btn modal-close waves-effect waves-green">Save Changes!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="events col l3">
+        <!--Experimental modals-->
+
+        <div id="modal4" class="modal modal-4">
+          <div class="modal-content">
+            <p id="event-title">event title here</p>
+            <p id="type">type goes here</p>
+            <p id="time">time goes here</p>
+            <p id="venue">Venue goes here</p>
+            <button data-target="modal2" id="add-event-to-calendar" class="modal-trigger modal-close">Add to Calendar</button>
+            <a id="btn-url">
+              <button id="view-event-online">View on Seatgeek</button>
+            </a>
+          </div>
+        </div>
+
+
+
+        <div class="seat-geek">
+         <input type="text" placeholder="Search For a City" id="txt-search">
+         <button class="btn-city-search" id="city-search">Search</button>
+         <div id="event-list"></div>
+        </div>
+      </div>
+
+      <div id="modal6" class="modal">
+        <div id="modal-confirm" class="modal-content blue-grey">
+          <h4>ARE YOU SURE YOU WANT TO DELETE THIS EVENT?</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   <script src="./assets/JavaScript/script.js"></script>
+  </body>
+</html>
